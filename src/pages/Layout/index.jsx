@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import { Button } from "antd-mobile";
-export default function index() {
+import { useDispatch } from "react-redux";
+import { getBillList } from "../../store/modules/billStore";
+export default function Layout() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getBillList());
+  }, []);
   return (
     <>
       <div>
