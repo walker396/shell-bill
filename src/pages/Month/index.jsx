@@ -4,17 +4,19 @@ import classNames from "classnames";
 import { useState, useMemo, useEffect } from "react";
 import dayjs from "dayjs";
 import { useSelector } from "react-redux";
+import DailyBill from "./Day";
 import _ from "lodash";
 const Month = () => {
   const billList = useSelector((state) => state.bill.billList);
-  const monthList = useMemo(() => {
+  const monthGroupList = useMemo(() => {
     return _.groupBy(billList, (item) => dayjs(item.date).format("YYYY-MM"));
   }, [billList]);
   const [dateVisible, setDateVisible] = useState(false);
   const [date, setDate] = useState(dayjs().format("YYYY-MM"));
   const [currentMonthList, setCurrentMonthList] = useState([]);
+  const [dayGroupList, setDayGroupList] = useState([]);
   const monthResult = useMemo(() => {
-    console.log(currentMonthList);
+    // console.log(dayGroupList);
     const pay = currentMonthList
       ?.filter((item) => item.type === "pay")
       .reduce((pre, cur) => {
@@ -27,19 +29,44 @@ const Month = () => {
       }, 0);
     return { pay, income, total: pay + income };
   }, [currentMonthList]);
+
   useEffect(() => {
     const currentDate = dayjs().format("YYYY-MM");
-    if (monthList[currentDate]) {
-      setCurrentMonthList(monthList[currentDate]);
+    console.log("++++++++++++++");
+    console.log(monthGroupList);
+    console.log(date);
+    if (monthGroupList[currentDate]) {
+      setCurrentMonthList(monthGroupList[currentDate]);
+      //   setDayGroupList(
+      //     _.groupBy(currentMonthList, (item) =>
+      //       dayjs(item.date).format("YYYY-MM-DD")
+      //     )
+      //   );
+      //   monthList.filter((item) => {
+      //     item;
+      //   });
     }
-  }, [monthList]);
+  }, [monthGroupList]);
 
   const onConfirm = (value) => {
     const currentDate = dayjs(value).format("YYYY-MM");
     setDate(currentDate);
-    setCurrentMonthList(monthList[currentDate]);
+    setCurrentMonthList(monthGroupList[currentDate]);
     setDateVisible(false);
   };
+
+  // 当前月按照日来做分组
+  const dayGroup = useMemo(() => {
+    // return出去计算之后的值
+    const groupData = _.groupBy(currentMonthList, (item) =>
+      dayjs(item.date).format("YYYY-MM-DD")
+    );
+    const keys = Object.keys(groupData);
+    return {
+      groupData,
+      keys,
+    };
+  }, [currentMonthList]);
   return (
     <div className="monthlyBill">
       <NavBar className="nav" backArrow={false}>
@@ -83,11 +110,15 @@ const Month = () => {
           />
         </div>
         {/* 单日列表统计 */}
-        {/* {dayGroup.keys.map((key) => {
-        return (
-          <DailyBill key={key} date={key} billList={dayGroup.groupData[key]} />
-        );
-      })} */}
+        {dayGroup.keys.map((key) => {
+          return (
+            <DailyBill
+              key={key}
+              date={key}
+              billList={dayGroup.groupData[key]}
+            />
+          );
+        })}
       </div>
     </div>
   );
