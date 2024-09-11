@@ -2,7 +2,6 @@ import classNames from "classnames";
 import "./index.scss";
 import React, { useMemo, useState } from "react";
 import _ from "lodash";
-import dayjs from "dayjs";
 import Icon from "../../../components/Icon";
 export default function DailyBill({ date, billList }) {
   const [visible, setVisible] = useState(false);
@@ -19,15 +18,15 @@ export default function DailyBill({ date, billList }) {
     return { pay, income, total: pay + income };
   });
   return (
-    <div className={classNames("dailyBill")}>
+    <div
+      className={classNames("dailyBill")}
+      onClick={() => setVisible(!visible)}
+    >
       <div className="header">
         <div className="dateIcon">
           <span className="date">{date}</span>
           {/* expand 有这个类名 展开的箭头朝上的样子 */}
-          <span
-            className={classNames("arrow", visible && "expand")}
-            onClick={() => setVisible(!visible)}
-          ></span>
+          <span className={classNames("arrow", visible && "expand")}></span>
         </div>
         <div className="oneLineOverview">
           <div className="pay">

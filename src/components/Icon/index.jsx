@@ -1,7 +1,7 @@
 const Icon = ({ type }) => {
   return (
     <img
-      src={`https://yjy-teach-oss.oss-cn-beijing.aliyuncs.com/reactbase/ka/${type}.svg`}
+      src={process.env.PUBLIC_URL + `/icons/${type}.png`}
       alt="icon"
       style={{
         width: 20,

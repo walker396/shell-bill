@@ -32,9 +32,7 @@ const Month = () => {
 
   useEffect(() => {
     const currentDate = dayjs().format("YYYY-MM");
-    console.log("++++++++++++++");
-    console.log(monthGroupList);
-    console.log(date);
+
     if (monthGroupList[currentDate]) {
       setCurrentMonthList(monthGroupList[currentDate]);
       //   setDayGroupList(
