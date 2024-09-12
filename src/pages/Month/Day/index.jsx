@@ -31,14 +31,14 @@ export default function DailyBill({ date, billList }) {
         <div className="oneLineOverview">
           <div className="pay">
             <span className="type">Expenses</span>
-            <span className="money">{dayResult.pay.toFixed(2)}</span>
+            <span className="money">{dayResult.pay?.toFixed(2)}</span>
           </div>
           <div className="income">
             <span className="type">Income</span>
-            <span className="money">{dayResult.income.toFixed(2)}</span>
+            <span className="money">{dayResult.income?.toFixed(2)}</span>
           </div>
           <div className="balance">
-            <span className="money">{dayResult.total.toFixed(2)}</span>
+            <span className="money">{dayResult.total?.toFixed(2)}</span>
             <span className="type">Balance</span>
           </div>
         </div>
@@ -54,7 +54,7 @@ export default function DailyBill({ date, billList }) {
                 <div className="billType">{item.useFor}</div>
               </div>
               <div className={classNames("money", item.type)}>
-                {item.money.toFixed(2)}
+                {item.money?.toFixed(2)}
               </div>
             </div>
           );

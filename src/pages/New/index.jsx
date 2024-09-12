@@ -16,7 +16,7 @@ const New = () => {
   const [showDate, setShowDate] = useState(false);
   const [date, setDate] = useState(new Date());
   const dispatch = useDispatch();
-  const saveBill = () => {
+  const saveBill = async () => {
     const formData = {
       id: new Date().getTime(),
       type: payOrIncome,
@@ -24,8 +24,8 @@ const New = () => {
       date: date,
       useFor: useFor,
     };
-    dispatch(addBill(formData));
-    navigate(-1);
+    await dispatch(addBill(formData));
+    navigate("/");
   };
   const cofirmDate = (date) => {
     console.log(date);
@@ -35,7 +35,7 @@ const New = () => {
   return (
     <div className="keepAccounts">
       <NavBar className="nav" onBack={() => navigate(-1)}>
-        记一笔
+        NEW TRANSACTION
       </NavBar>
 
       <div className="header">
@@ -45,14 +45,14 @@ const New = () => {
             className={classNames(payOrIncome === "pay" ? "selected" : "")}
             onClick={() => setPayOrIncome("pay")}
           >
-            支出
+            Pay
           </Button>
           <Button
             className={classNames(payOrIncome === "income" ? "selected" : "")}
             shape="rounded"
             onClick={() => setPayOrIncome("income")}
           >
-            收入
+            Income
           </Button>
         </div>
 
@@ -63,7 +63,7 @@ const New = () => {
               <span className="text">{dayjs(date).format("YYYY-MM-DD")}</span>
               <DatePicker
                 className="kaDate"
-                title="记账日期"
+                title="Log Time"
                 max={new Date()}
                 visible={showDate}
                 onConfirm={cofirmDate}
@@ -115,7 +115,7 @@ const New = () => {
 
       <div className="btns">
         <Button className="btn save" onClick={saveBill}>
-          保 存
+          Save
         </Button>
       </div>
     </div>
