@@ -4,7 +4,7 @@
 
 Expense Tracker is a smart budgeting application developed based on the latest React 18 technology, designed to help you effortlessly manage your personal finances, achieve rational spending, and financial freedom. Whether it's daily expenses, bill payments, or budget planning, Expense Tracker can meet your needs and make financial management simple and enjoyable.
 Demo Screenshots:
-![Interface Display](https://github.com/walker396/shell-bill/blob/main/demo-1.gif "Interface Display.gif")
+<img src="./demo-1.gif" alt="Interface Display.gif" width="300" height="640" />
 
 ## Features:
 
